@@ -33,9 +33,9 @@
      <widget class="QScrollArea" name="scrollArea">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>30</y>
-        <width>831</width>
+        <x>30</x>
+        <y>10</y>
+        <width>921</width>
         <height>441</height>
        </rect>
       </property>
@@ -47,21 +47,22 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>829</width>
+         <width>919</width>
          <height>439</height>
         </rect>
        </property>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+       <widget class="QTextEdit" name="textEdit">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>831</width>
+          <width>921</width>
           <height>441</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 700 italic 20pt &quot;C059 [urw]&quot;;
+color: rgb(85, 0, 127);</string>
         </property>
        </widget>
       </widget>
@@ -69,7 +70,7 @@
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>90</x>
+        <x>80</x>
         <y>500</y>
         <width>201</width>
         <height>41</height>

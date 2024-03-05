@@ -1,13 +1,31 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
 #include <QByteArray>
+
+QString getTables(){
+    QString t;
+    system("iptables -L > list.txt");
+    std::ifstream fichier("list.txt");
+    if(fichier.is_open()){
+        std::string ligne;
+        while(std::getline(fichier,ligne)){
+            t+=(QString::fromStdString(ligne))+"\n";
+        }
+    }
+    return t;
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QString tmp=getTables();
+    ui->textEdit->setText(tmp);
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +36,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-    ui->lineEdit->setText(ui->pushButton->text());
 }
 
 
@@ -127,6 +144,13 @@ void MainWindow::on_pushButton_13_clicked()
     fprintf(file,"%s",c);
     fclose(file);
     system(c);
+    QString tmp=getTables();
+    ui->textEdit->setText(tmp);
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_3->setCurrentIndex(0);
+    ui->stackedWidget_2->setCurrentIndex(0);
+    ui->stackedWidget_4->setCurrentIndex(0);
+    ui->stackedWidget_5->setCurrentIndex(0);
 }
 
 
@@ -260,5 +284,8 @@ void MainWindow::on_pushButton_3_clicked()
     system("iptables -P OUTPUT ACCEPT");
     system("iptables -P FORWARD ACCEPT");
     system("iptables -F");
+    ui->stackedWidget->setCurrentIndex(0);
+    QString tmp=getTables();
+    ui->textEdit->setText(tmp);
 }
 
