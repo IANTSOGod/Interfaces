@@ -65,7 +65,7 @@ void MainWindow::getList(){
         }
     }
     longueurINPUT=lignesEntreChainInputForward-2;
-    longueurFORWARD=lignesEntreChainInputForward-2;
+    longueurFORWARD=lignesEntreChainInputForward-1;
     longueurOUTPUT=lignesEntreChainOutputFin-1;
     fichier.close();
 }
@@ -150,7 +150,7 @@ void MainWindow::on_pushButton_2_clicked()
                             deletable = "iptables -D OUTPUT " + QString::number(lineNum);
                             --longueurOUTPUT;
                         }
-                    } else {
+                    } else if(list_target[i] == "FORWARD"){
                         if (i < longueurFORWARD) {
                             deletable = "iptables -D FORWARD " + QString::number(lineNum);
                             --longueurFORWARD;
@@ -426,5 +426,29 @@ void MainWindow::on_pushButton_26_clicked()
 {
     this->close();
     quit->show();
+}
+
+
+void MainWindow::on_pushButton_27_clicked()
+{
+    system("iptables -F");
+    system("iptables -P INPUT DROP");
+    system("iptables -P OUTPUT DROP");
+    system("iptables -P FORWARD DROP");
+    QString tmp=getTables();
+    ui->textEdit->setText(tmp);
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_28_clicked()
+{
+    system("iptables -F");
+    system("iptables -P INPUT ACCEPT");
+    system("iptables -P OUTPUT ACCEPT");
+    system("iptables -P FORWARD ACCEPT");
+    QString tmp=getTables();
+    ui->textEdit->setText(tmp);
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
